@@ -33,9 +33,17 @@
                 </button>
             </form>
         </div>
-        <div class="navigation-grid">
+        <div class="navigation-grid" id="navigationGrid">
             {% for item in navigation %}
-            <div class="nav-card" data-id="{{ item.id }}">
+            <div class="nav-card" 
+                 data-id="{{ item.id }}"
+                 draggable="true"
+                 data-order="{{ item.order }}">
+                <div class="drag-handle">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="drag-icon">
+                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </div>
                 <h2>{{ item.title }}</h2>
                 <p>{{ item.description }}</p>
                 <div class="button-group">
@@ -65,3 +73,4 @@
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+

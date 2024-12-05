@@ -15,6 +15,7 @@
     --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
 }
 
+
 * {
     margin: 0;
     padding: 0;
@@ -291,3 +292,90 @@ html {
     }
 }
 
+.nav-card {
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-card:active {
+    cursor: grabbing;
+}
+
+.nav-card.dragging {
+    opacity: 0.7;
+    cursor: grabbing;
+    transform: scale(1.02);
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+}
+
+.drag-handle {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    cursor: grab;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    opacity: 0.4;
+    transition: all 0.2s ease;
+}
+
+.drag-handle:hover {
+    opacity: 1;
+    background-color: var(--background);
+    transform: scale(1.1);
+}
+
+.drag-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.nav-card.drag-over {
+    border: 2px dashed var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    transform: scale(1.01);
+}
+
+.nav-card.drag-over::before {
+    opacity: 0;
+}
+
+/* 拖拽时的占位符样式 */
+.drag-placeholder {
+    border: 2px dashed var(--border-color);
+    background-color: var(--background);
+    border-radius: 0.75rem;
+    height: 100px;
+    opacity: 0.5;
+}
+
+/* Toast 通知样式 */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    background-color: var(--text-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast.success {
+    background-color: var(--success-color);
+}
+
+.toast.error {
+    background-color: var(--danger-color);
+}

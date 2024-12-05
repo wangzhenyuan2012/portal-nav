@@ -50,7 +50,8 @@ def handle_navigation():
             'id': len(navigation) + 1,
             'title': data['title'],
             'url': data['url'],
-            'description': data.get('description', '')
+            'description': data.get('description', ''),
+            'order': len(navigation)  # Add order field
         }
         navigation.append(new_item)
         save_navigation(navigation)
@@ -63,8 +64,51 @@ def handle_navigation():
         
         navigation = load_navigation()
         navigation = [item for item in navigation if str(item['id']) != item_id]
+        # 更新排序
+        for i, item in enumerate(navigation):
+            item['order'] = i
         save_navigation(navigation)
         return jsonify({'message': 'Deleted successfully'})
+
+@app.route('/api/navigation/reorder', methods=['POST'])
+def reorder_navigation():
+    data = request.get_json()
+    if not data or 'sourceId' not in data or 'targetId' not in data:
+        return jsonify({'error': 'Missing required fields'}), 400
+    
+    source_id = int(data['sourceId'])
+    target_id = int(data['targetId'])
+    
+    navigation = load_navigation()
+    
+    # 找到源项和目标项的索引
+    source_item = next((item for item in navigation if item['id'] == source_id), None)
+    target_item = next((item for item in navigation if item['id'] == target_id), None)
+    
+    if not source_item or not target_item:
+        return jsonify({'error': 'Items not found'}), 404
+    
+    # 获取当前顺序
+    source_order = source_item['order']
+    target_order = target_item['order']
+    
+    # 更新顺序
+    if source_order < target_order:
+        for item in navigation:
+            if source_order < item['order'] <= target_order:
+                item['order'] -= 1
+    else:
+        for item in navigation:
+            if target_order <= item['order'] < source_order:
+                item['order'] += 1
+    
+    source_item['order'] = target_order
+    
+    # 按顺序排序
+    navigation.sort(key=lambda x: x['order'])
+    save_navigation(navigation)
+    
+    return jsonify({'message': 'Reordered successfully'})
 
 if __name__ == '__main__':
     app.run(debug=True)
