@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>编辑导航</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -12,23 +13,54 @@
         <div class="add-form">
             <h2>添加新网站</h2>
             <form id="addForm">
-                <input type="text" id="title" placeholder="网站标题" required>
-                <input type="url" id="url" placeholder="网站地址" required>
-                <textarea id="description" placeholder="网站描述"></textarea>
-                <button type="submit" class="add-btn">添加</button>
+                <div class="form-group">
+                    <label for="title">网站标题</label>
+                    <input type="text" id="title" class="form-control" placeholder="请输入网站标题" required>
+                </div>
+                <div class="form-group">
+                    <label for="url">网站地址</label>
+                    <input type="url" id="url" class="form-control" placeholder="请输入网站地址" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">网站描述</label>
+                    <textarea id="description" class="form-control" placeholder="请输入网站描述"></textarea>
+                </div>
+                <button type="submit" class="button add-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    添加网站
+                </button>
             </form>
         </div>
         <div class="navigation-grid">
             {% for item in navigation %}
-            <div class="nav-card">
+            <div class="nav-card" data-id="{{ item.id }}">
                 <h2>{{ item.title }}</h2>
                 <p>{{ item.description }}</p>
-                <a href="{{ item.url }}" target="_blank" class="visit-btn">访问网站</a>
-                <button class="delete-btn" onclick="deleteNavItem({{ item.id }})">删除</button>
+                <div class="button-group">
+                    <a href="{{ item.url }}" target="_blank" class="button visit-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                            <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" />
+                        </svg>
+                        访问网站
+                    </a>
+                    <button class="button delete-btn" onclick="deleteNavItem({{ item.id }})">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        删除
+                    </button>
+                </div>
             </div>
             {% endfor %}
         </div>
-        <a href="/" class="back-btn">返回主页</a>
+        <a href="/" class="button back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+            </svg>
+            返回主页
+        </a>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

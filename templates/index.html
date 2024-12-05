@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>网址导航</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -11,13 +12,19 @@
         <h1>我的网址导航</h1>
         <div class="navigation-grid">
             {% for item in navigation %}
-            <div class="nav-card">
+            <div class="nav-card" data-id="{{ item.id }}">
                 <h2>{{ item.title }}</h2>
                 <p>{{ item.description }}</p>
-                <a href="{{ item.url }}" target="_blank" class="visit-btn">访问网站</a>
+                <a href="{{ item.url }}" target="_blank" class="button visit-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                        <path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" />
+                    </svg>
+                    访问网站
+                </a>
             </div>
             {% endfor %}
         </div>
     </div>
 </body>
 </html>
+
