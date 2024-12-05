@@ -111,6 +111,7 @@ h1 {
     text-decoration: none;
     transition: all 0.2s ease;
     font-size: 0.875rem;
+    white-space: nowrap; /* 添加这行来防止按钮文字换行 */
 }
 
 .visit-btn {
@@ -214,6 +215,7 @@ textarea.form-control {
     display: flex;
     gap: 0.75rem;
     margin-top: 1rem;
+    flex-wrap: nowrap; /* 添加这行来防止按钮组换行 */
 }
 
 @media (max-width: 640px) {
@@ -227,6 +229,7 @@ textarea.form-control {
     
     .button-group {
         flex-direction: column;
+        flex-wrap: wrap; /* 在移动端允许换行 */
     }
     
     .button-group .button {
