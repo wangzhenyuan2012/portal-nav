@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网址导航</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>我的网址导航</h1>
+        <div class="navigation-grid">
+            {% for item in navigation %}
+            <div class="nav-card">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+                <a href="{{ item.url }}" target="_blank" class="visit-btn">访问网站</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

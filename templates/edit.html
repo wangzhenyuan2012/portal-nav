@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑导航</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>编辑导航</h1>
+        <div class="add-form">
+            <h2>添加新网站</h2>
+            <form id="addForm">
+                <input type="text" id="title" placeholder="网站标题" required>
+                <input type="url" id="url" placeholder="网站地址" required>
+                <textarea id="description" placeholder="网站描述"></textarea>
+                <button type="submit" class="add-btn">添加</button>
+            </form>
+        </div>
+        <div class="navigation-grid">
+            {% for item in navigation %}
+            <div class="nav-card">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+                <a href="{{ item.url }}" target="_blank" class="visit-btn">访问网站</a>
+                <button class="delete-btn" onclick="deleteNavItem({{ item.id }})">删除</button>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="/" class="back-btn">返回主页</a>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
